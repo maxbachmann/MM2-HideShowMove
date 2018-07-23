@@ -44,23 +44,16 @@ def on_message(client, userdata, msg):
         session_id = data['session_id']
 
         if intentname == 'HideShow':
-            try:
-                module = slots['MODULE']
-                action = {'module':module}
-                MM2(intentname, action)
-            except KeyError:
-                say(session_id, "Ich habe dich leider nicht verstanden.")
+            module = slots['MODULE']
+            action = {'module':module}
+            MM2(intentname, action)
         if intentname == 'Move':
-            try:
-                module = slots['MODULE']
-                position = slots['POSITION']
-                action = {'module':module, 'position':position}
-                MM2(intentname, action)
-            except KeyError:
-                say(session_id, "Ich habe dich leider nicht verstanden.")
+            module = slots['MODULE']
+            position = slots['POSITION']
+            action = {'module':module, 'position':position}
+            MM2(intentname, action)
     except KeyError:
                 say(session_id, "Ich habe dich leider nicht verstanden.")
-
 
 
 
