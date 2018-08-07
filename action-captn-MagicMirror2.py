@@ -31,7 +31,6 @@ print("Conf:", conf)
 # MQTT client to connect to the bus
 mqtt_client = mqtt.Client()
 
-
 def on_connect(client, userdata, flags, rc):
     client.subscribe("hermes/intent/#")
 
@@ -43,11 +42,11 @@ def on_message(client, userdata, msg):
         user, intentname = data['intent']['intentName'].split(':')
         session_id = data['session_id']
 
-        if intentname == 'HideShow':
+        if intentname == 'MM_Hide' or intentname == 'MM_Show' :
             module = slots['MODULE']
             action = {'module':module}
             MM2(intentname, action)
-        if intentname == 'Move':
+        if intentname == 'MM_Move':
             module = slots['MODULE']
             position = slots['POSITION']
             action = {'module':module, 'position':position}
