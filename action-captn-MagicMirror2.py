@@ -46,12 +46,14 @@ def on_message(client, userdata, msg):
             module = slots['MODULE']
             action = {'module':module}
             MM2(intentname, action)
+            say(session_id, "Mache ich")
         if intentname == 'MM_Move':
             module = slots['MODULE']
             position = slots['POSITION']
             action = {'module':module, 'position':position}
             MM2(intentname, action)
-        say(session_id, "Mache ich")
+            say(session_id, "Mache ich")
+      
     except KeyError:
                 say(session_id, "Ich habe dich leider nicht verstanden.")
 
