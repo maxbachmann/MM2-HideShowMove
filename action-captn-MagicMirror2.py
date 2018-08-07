@@ -31,7 +31,6 @@ print("Conf:", conf)
 # MQTT client to connect to the bus
 mqtt_client = mqtt.Client()
 
-
 def on_connect(client, userdata, flags, rc):
     client.subscribe("hermes/intent/#")
 
