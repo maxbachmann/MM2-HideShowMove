@@ -37,10 +37,10 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     data = json.loads(msg.payload.decode("utf-8"))
+    session_id = data['sessionId']
     try:
         slots = {slot['slotName']: slot['value']['value'] for slot in data['slots']}
         user, intentname = data['intent']['intentName'].split(':')
-        session_id = data['session_id']
 
         if intentname == 'MM_Hide' or intentname == 'MM_Show' :
             module = slots['MODULE']
