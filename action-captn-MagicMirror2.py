@@ -42,26 +42,24 @@ def on_message(client, userdata, msg):
         slots = {slot['slotName']: slot['value']['value'] for slot in data['slots']}
         user, intentname = data['intent']['intentName'].split(':')
 
-        if intentname == 'MM_Hide' or intentname == 'MM_Show' :
-            module = slots['MODULE']
-            action = {'module':module}
-            MM2(intentname, action)
-            say(session_id, "Mache ich")
-        if intentname == 'MM_Move':
-            module = slots['MODULE']
+        intentname == 'MM_Hide' or intentname == 'MM_Show' or intentname == 'MM_Move'
+        module = slots['MODULE']
+        say(session_id, "Mache ich")
+        if intentname == 'MM_Hide':
+            action = {'message':'HIDE_' + module}
+        elif intentname == 'MM_Show' :
+            action = {'message':'SHOW_' + module}
+        elif intentname == 'MM_Move':
             position = slots['POSITION']
             action = {'module':module, 'position':position}
-            MM2(intentname, action)
-            say(session_id, "Mache ich")
+        MM2(intentname, action)
       
     except KeyError:
                 say(session_id, "Ich habe dich leider nicht verstanden.")
 
 
-
-
 def MM2(intentname, action):
-    mqtt_client.publish(('hermes/MagicMirror2/' + intentname),
+    mqtt_client.publish(('hermes/external/MagicMirror2/' + intentname),
                         json.dumps(action))
 
 def say(session_id, text):
