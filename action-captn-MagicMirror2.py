@@ -54,16 +54,14 @@ def on_message(client, userdata, msg):
                  mode = 'STANDARD'
 
             if intentname == 'MM_Hide' and (mode == 'STANDARD' or mode == 'ALL'):
-                action = {'message':'HIDE_' + module}
+                action = {'module':module}
             elif intentname == 'MM_Show' and (mode == 'STANDARD' or mode == 'PAGE') :
-                action = {'message':'SHOW_' + module}
+                action = {'module':module}
             elif intentname == 'MM_Move' and mode == 'STANDARD':
                 position = slots['POSITION']
                 action = {'module':module, 'position':position}
             else:
                 raise UnboundLocalError("Das kann ich leider nicht")
-                say(session_id, "Das kann ich leider nicht")
-
             say(session_id, "Mache ich")
             MM2(intentname, action)
     except UnboundLocalError, e:
