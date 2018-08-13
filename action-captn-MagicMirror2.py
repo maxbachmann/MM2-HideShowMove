@@ -89,7 +89,7 @@ def say(session_id, text):
 if __name__ == "__main__":
     mqtt_client.on_connect = on_connect
     mqttclient.message_callback_add("hermes/intent/#", on_message)
-    mqttclient.message_callback_add("hermes/external/MagicMirror2/", valve_callback)
+    mqttclient.message_callback_add("hermes/external/MagicMirror2/#", valve_callback)
     #mqtt_client.on_message = on_message
     mqtt_client.connect("localhost", "1883")
     mqtt_client.loop_forever()
