@@ -73,9 +73,8 @@ def test(client, userdata, msg):
                 say(session_id, "Ich habe dich leider nicht verstanden.")
 
 def valve_callback(client, userdata, msg):
-    data = json.loads(msg.payload.decode("utf-8"))
-    session_id = data['sessionId']
-    say(session_id, "Ich habe dich leider nicht verstanden.")
+    mqtt_client.publish(('hermes/external/MagicMirror2/MM_Hide'),
+                        json.dumps({'module':'CLOCK'}))
 
 def MM2(intentname, action):
     mqtt_client.publish(('hermes/external/MagicMirror2/' + intentname),
