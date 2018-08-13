@@ -33,9 +33,12 @@ mqtt_client = mqtt.Client()
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe("hermes/intent/#")
+    client.subscribe("hermes/intent/#")
 
 
 def on_message(client, userdata, msg):
+
+    if 
     data = json.loads(msg.payload.decode("utf-8"))
     session_id = data['sessionId']
     try:
@@ -70,6 +73,8 @@ def on_message(client, userdata, msg):
     except KeyError:
                 say(session_id, "Ich habe dich leider nicht verstanden.")
 
+def valve_callback(client, userdata, msg):
+    say(session_id, "Ich habe dich leider nicht verstanden.")
 
 def MM2(intentname, action):
     mqtt_client.publish(('hermes/external/MagicMirror2/' + intentname),
@@ -83,6 +88,8 @@ def say(session_id, text):
 
 if __name__ == "__main__":
     mqtt_client.on_connect = on_connect
-    mqtt_client.on_message = on_message
+    mqttclient.message_callback_add("hermes/intent/#", on_message)
+    mqttclient.message_callback_add("hermes/external/MagicMirror2/", valve_callback)
+    #mqtt_client.on_message = on_message
     mqtt_client.connect("localhost", "1883")
     mqtt_client.loop_forever()
