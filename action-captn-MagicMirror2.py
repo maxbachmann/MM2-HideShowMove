@@ -38,6 +38,7 @@ def on_connect(client, userdata, flags, rc):
 
 
 def test(client, userdata, msg):
+    client.subscribe("hermes/intent/#")
     data = json.loads(msg.payload.decode("utf-8"))
     session_id = data['sessionId']
     try:
