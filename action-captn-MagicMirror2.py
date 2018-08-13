@@ -72,8 +72,7 @@ def test(client, userdata, msg):
                 say(session_id, "Ich habe dich leider nicht verstanden.")
 
 def valve_callback(client, userdata, msg):
-    mqtt_client.publish(('hermes/external/test'),
-                        "Ich habe dich leider nicht verstanden." ))
+    mqtt_client.publish(('hermes/external/test'), "Ich habe dich leider nicht verstanden.")
 
 def MM2(intentname, action):
     mqtt_client.publish(('hermes/external/MagicMirror2/' + intentname),
