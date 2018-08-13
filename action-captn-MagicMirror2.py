@@ -33,7 +33,7 @@ mqtt_client = mqtt.Client()
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe("hermes/intent/#")
-    client.subscribe("hermes/intent/#")
+    client.subscribe("hermes/external/MagicMirror2/#")
 
 
 def test(client, userdata, msg):
@@ -87,6 +87,9 @@ def say(session_id, text):
 
 def on_message(session_id, text):
     pass
+
+
+
 
 if __name__ == "__main__":
     mqtt_client.on_connect = on_connect
