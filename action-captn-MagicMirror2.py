@@ -34,6 +34,7 @@ mqtt_client = mqtt.Client()
 def on_connect(client, userdata, flags, rc):
     client.subscribe("hermes/intent/#")
     client.subscribe("hermes/external/MagicMirror2/#")
+    client.subscribe("hermes/intent/#")
 
 
 def test(client, userdata, msg):
@@ -42,7 +43,6 @@ def test(client, userdata, msg):
     try:
         slots = {slot['slotName']: slot['value']['value'] for slot in data['slots']}
         user, intentname = data['intent']['intentName'].split(':')
-
 
         if (intentname == 'MM_Hide' or intentname == 'MM_Show' or intentname == 'MM_Move'):
             module = slots['MODULE']
