@@ -61,7 +61,7 @@ def message(client, userdata, msg):
                 action = {'module':module, 'position':position}
             else:
                 raise UnboundLocalError("Das kann ich leider nicht")
-            say(session_id, "Mache ich")
+            say(session_id, msg.topic)
             MM2(intentname, action)
     except UnboundLocalError, e:
         say(session_id, e.message)
