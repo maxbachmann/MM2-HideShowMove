@@ -42,27 +42,26 @@ def message(client, userdata, msg):
         slots = {slot['slotName']: slot['value']['value'] for slot in data['slots']}
         user, intentname = data['intent']['intentName'].split(':')
 
-        if (intentname == 'MM_Hide' or intentname == 'MM_Show' or intentname == 'MM_Move'):
-            module = slots['MODULE']
+        module = slots['MODULE']
 
-            if module == 'ALL':
-                mode = 'ALL'
-            elif 'PAGE' in module:
-                mode = 'PAGE'
-            else:
-                 mode = 'STANDARD'
+        if module == 'ALL':
+            mode = 'ALL'
+        elif 'PAGE' in module:
+            mode = 'PAGE'
+        else:
+            mode = 'STANDARD'
 
-            if intentname == 'MM_Hide' and (mode == 'STANDARD' or mode == 'ALL'):
-                action = {'module':module}
-            elif intentname == 'MM_Show' and (mode == 'STANDARD' or mode == 'PAGE') :
-                action = {'module':module}
-            elif intentname == 'MM_Move' and mode == 'STANDARD':
-                position = slots['POSITION']
-                action = {'module':module, 'position':position}
-            else:
-                raise UnboundLocalError("Das kann ich leider nicht")
-            say(session_id, "Mache ich")
-            MM2(intentname, action)
+        if intentname == 'MM_Hide' and (mode == 'STANDARD' or mode == 'ALL'):
+            action = {'module':module}
+        elif intentname == 'MM_Show' and (mode == 'STANDARD' or mode == 'PAGE') :
+            action = {'module':module}
+        elif intentname == 'MM_Move' and mode == 'STANDARD':
+            position = slots['POSITION']
+            action = {'module':module, 'position':position}
+        else:
+            raise UnboundLocalError("Das kann ich leider nicht")
+        say(session_id, "Mache ich")
+        MM2(intentname, action)
     except UnboundLocalError, e:
         say(session_id, e.message)
 
