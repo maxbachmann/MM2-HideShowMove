@@ -61,7 +61,7 @@ def message(client, userdata, msg):
                 action = {'module':module, 'position':position}
             else:
                 raise UnboundLocalError("Das kann ich leider nicht")
-            say(session_id, msg.topic)
+            say(session_id, "Mache ich")
             MM2(intentname, action)
     except UnboundLocalError, e:
         say(session_id, e.message)
@@ -82,6 +82,6 @@ def say(session_id, text):
 
 if __name__ == "__main__":
     mqtt_client.on_connect = on_connect
-    mqtt_client.message_callback_add("hermes/intent/#", message)
+    mqtt_client.message_callback_add("hermes/intent/MM_Hide" or "hermes/intent/MM_Show" or "hermes/intent/MM_Move" , message)
     mqtt_client.connect("localhost", "1883")
     mqtt_client.loop_forever()
