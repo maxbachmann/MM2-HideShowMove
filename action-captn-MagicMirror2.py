@@ -32,7 +32,7 @@ print("Conf:", conf)
 mqtt_client = mqtt.Client()
 
 def on_connect(client, userdata, flags, rc):
-    client.subscribe("hermes/intent/MM2-HideShowMove/#")
+    client.subscribe("hermes/intent/#")
 
 
 def message(client, userdata, msg):
@@ -42,26 +42,27 @@ def message(client, userdata, msg):
         slots = {slot['slotName']: slot['value']['value'] for slot in data['slots']}
         user, intentname = data['intent']['intentName'].split(':')
 
-        module = slots['MODULE']
+        if (intentname == 'MM_Hide' or intentname == 'MM_Show' or intentname == 'MM_Move'):
+            module = slots['MODULE']
 
-        if module == 'ALL':
-            mode = 'ALL'
-        elif 'PAGE' in module:
-            mode = 'PAGE'
-        else:
-            mode = 'STANDARD'
+            if module == 'ALL':
+                mode = 'ALL'
+            elif 'PAGE' in module:
+                mode = 'PAGE'
+            else:
+                 mode = 'STANDARD'
 
-        if intentname == 'MM_Hide' and (mode == 'STANDARD' or mode == 'ALL'):
-            action = {'module':module}
-        elif intentname == 'MM_Show' and (mode == 'STANDARD' or mode == 'PAGE') :
-            action = {'module':module}
-        elif intentname == 'MM_Move' and mode == 'STANDARD':
-            position = slots['POSITION']
-            action = {'module':module, 'position':position}
-        else:
-            raise UnboundLocalError("Das kann ich leider nicht")
-        say(session_id, "Mache ich")
-        MM2(intentname, action)
+            if intentname == 'MM_Hide' and (mode == 'STANDARD' or mode == 'ALL'):
+                action = {'module':module}
+            elif intentname == 'MM_Show' and (mode == 'STANDARD' or mode == 'PAGE') :
+                action = {'module':module}
+            elif intentname == 'MM_Move' and mode == 'STANDARD':
+                position = slots['POSITION']
+                action = {'module':module, 'position':position}
+            else:
+                raise UnboundLocalError("Das kann ich leider nicht")
+            say(session_id, "Mache ich")
+            MM2(intentname, action)
     except UnboundLocalError, e:
         say(session_id, e.message)
 
@@ -81,6 +82,6 @@ def say(session_id, text):
 
 if __name__ == "__main__":
     mqtt_client.on_connect = on_connect
-    mqtt_client.on_message = message
+    mqtt_client.message_callback_add("hermes/intent/#", message)
     mqtt_client.connect("localhost", "1883")
     mqtt_client.loop_forever()
