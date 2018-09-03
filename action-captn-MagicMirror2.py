@@ -69,7 +69,7 @@ def message(client, userdata, msg):
         say(session_id, "Ich habe dich leider nicht verstanden.")
 
 def MM2(intentname, action):
-    mqtt_client.publish(('hermes/external/MagicMirror2/' + intentname),
+    mqtt_client.publish(('external/MagicMirror2/' + intentname),
                         json.dumps(action))
 
 def say(session_id, text):
