@@ -81,8 +81,8 @@ def say(session_id, text):
 
 if __name__ == "__main__":
     mqtt_client.on_connect = on_connect
-    mqtt_client.message_callback_add("hermes/intent/captn2:MM_Hide/#", message)
-    mqtt_client.message_callback_add("hermes/intent/captn2:MM_Show/#", message)
-    mqtt_client.message_callback_add("hermes/intent/captn2:MM_Move/#", message)
+    mqtt_client.message_callback_add("hermes/intent/maxbachmann:MM_Hide/#", message)
+    mqtt_client.message_callback_add("hermes/intent/maxbachmann:MM_Show/#", message)
+    mqtt_client.message_callback_add("hermes/intent/maxbachmann:MM_Move/#", message)
     mqtt_client.connect("localhost", "1883")
     mqtt_client.loop_forever()
