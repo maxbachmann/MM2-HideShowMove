@@ -40,7 +40,7 @@ def message(client, userdata, msg):
     session_id = data['sessionId']
     try:
         slots = {slot['slotName']: slot['value']['value'] for slot in data['slots']}
-        intentname = data['intent']['intentName'].rsplit(':')[0]
+        intentname = data['intent']['intentName'].split(':')[1]
 
         module = slots['MODULE']
 
