@@ -21,7 +21,7 @@ def read_configuration_file(configuration_file):
             conf_parser = SnipsConfigParser()
             conf_parser.readfp(f)
             return conf_parser.to_dict()
-    except (IOError, ConfigParser.Error) as e:
+    except (IOError, ConfigParser.Error):
         return dict()
 
 
@@ -40,7 +40,7 @@ def message(client, userdata, msg):
     session_id = data['sessionId']
     try:
         slots = {slot['slotName']: slot['value']['value'] for slot in data['slots']}
-        user, intentname = data['intent']['intentName'].split(':')
+        intentname = data['intent']['intentName'].rsplit(':')[0]
 
         module = slots['MODULE']
 
