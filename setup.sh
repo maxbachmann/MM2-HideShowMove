@@ -5,7 +5,7 @@ VENV=venv
 if [ ! -d "$VENV" ]
 then
 
-    PYTHON=`which python2`
+    PYTHON=$(which python2)
 
     if [ ! -f $PYTHON ]
     then
