@@ -26,5 +26,5 @@ Please keep the following in mind:
 -   **New Features**: please please discuss in a GitLab issue before you start to alter a big part of the code. Without discussion upfront, the pull request will not be accepted / merged.
 
 ## Planned
-1. add more supported modules
-2. english Version
+1.  add more supported modules
+2.  english Version
